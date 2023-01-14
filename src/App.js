@@ -1,25 +1,32 @@
-import logo from './logo.svg';
+
+import { Stack } from '@mui/material';
 import './App.css';
+import React from "react"
+import Video from './components/Video/Video';
+import Header from './components/Header/Header';
+import SideBar from './components/SideBar.jsx/SideBar';
+import VideoContainer from './components/VideoContainer/VideoContainer';
+import {BrowserRouter,Routes ,Route} from "react-router-dom" 
+
 
 function App() {
+  const [search,setSearch]=React.useState("All")
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+   <><BrowserRouter>
+    <Header value={{search:search,setSearch:setSearch}}/>
+    <Routes>
+        <Route path='/' element={  <Stack direction={{ xs: 'column', md: 'row' }}
+      spacing={{ xs: 1, sm: 2, md: 2 }} sx={{margin:"10px"}} >
+    <SideBar  value={{search:search,setSearch:setSearch}}/>
+    <VideoContainer  value={{search:search,setSearch:setSearch}} />
+    </Stack>} />
+    <Route path='/video/:videoid' element={<Video/>}/>
+    </Routes>
+
+  
+    </BrowserRouter>
+   </>
   );
 }
 
-export default App;
+export default App;  
